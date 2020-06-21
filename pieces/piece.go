@@ -30,3 +30,21 @@ func (piece HorizontalMovablePiece) moveHorizontally() board.Cells {
 	return nextCells
 }
 
+type VerticalMovable interface {
+	moveVertically() board.Cells
+}
+
+type VerticalMovablePiece struct {
+	Piece
+}
+
+func (piece VerticalMovablePiece) moveVertically() board.Cells {
+	nextCells := board.Cells{}
+	for _, verticalDirection := range board.VerticalDirections {
+		nextCells = append(nextCells,
+			traversals.TraverseSingleMovements(verticalDirection, piece.canMoveAcrossBoard, piece.current, piece.board)...)
+	}
+
+	return nextCells
+}
+

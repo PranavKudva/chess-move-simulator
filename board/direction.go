@@ -36,3 +36,5 @@ var RightDown = func(cell Cell, stepCount int) Cell {
 
 var HorizontalDirections = []Direction{ Left, Right }
 
+var VerticalDirections = []Direction{ Up, Down }
+

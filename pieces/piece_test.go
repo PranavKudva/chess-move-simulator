@@ -56,3 +56,64 @@ func TestPiece_moveHorizontally(t *testing.T) {
 	}
 }
 
+func TestPiece_moveVertically(t *testing.T) {
+	tests := []struct {
+		name     string
+		piece    VerticalMovablePiece
+		expected board.Cells
+	}{
+		// A1
+		// B1
+		// C1
+		// D1
+		// E1; current = C1
+		{
+			name:     "piece on 5X1 board should return apt possible vertical cells when can't move across board",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{5, 1}, current: board.Cell{2, 0}, canMoveAcrossBoard: false}},
+			expected: board.Cells{board.Cell{1, 0}, board.Cell{3, 0}},
+		},
+		{
+			name:     "piece on 5X1 board should return all cells to vertical corner when can move across board",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{5, 1}, current: board.Cell{2, 0}, canMoveAcrossBoard: true}},
+			expected: board.Cells{board.Cell{1, 0}, board.Cell{0, 0}, board.Cell{3, 0}, board.Cell{4, 0}},
+		},
+		// A1
+		// B1
+		// C1
+		// D1
+		// E1; current = A1
+		{
+			name:     "piece on 5X1 board should return apt possible vertical cells when can't move up",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{5, 1}, current: board.Cell{0, 0}, canMoveAcrossBoard: true}},
+			expected: board.Cells{{1, 0}, {2, 0}, {3, 0}, {4, 0}},
+		},
+		// A1
+		// B1
+		// C1
+		// D1
+		// E1; current = E1
+		{
+			name:     "piece on 5X1 board should return apt possible vertical cells when can't move down",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{5, 1}, current: board.Cell{4, 0}, canMoveAcrossBoard: true}},
+			expected: board.Cells{{3, 0}, {2, 0}, {1, 0}, {0, 0}},
+		},
+		// A1; current = A1
+		{
+			name:     "piece on 1X1 board should return empty when on vertical corner and can't move across board",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{1, 1}, current: board.Cell{0, 0}, canMoveAcrossBoard: false}},
+			expected: board.Cells{},
+		},
+		{
+			name:     "piece on 1X1 board should return empty when on vertical corner and can move across board",
+			piece:    VerticalMovablePiece{Piece{board: board.Board{1, 1}, current: board.Cell{0, 0}, canMoveAcrossBoard: true}},
+			expected: board.Cells{},
+		},
+	}
+	for _, subtest := range tests {
+		t.Run(subtest.name, func(t *testing.T) {
+			cells := subtest.piece.moveVertically()
+			assert.Equal(t, subtest.expected, cells)
+		})
+	}
+}
+

@@ -33,3 +33,6 @@ var LeftDown = func(cell Cell, stepCount int) Cell {
 var RightDown = func(cell Cell, stepCount int) Cell {
 	return cell.rightDownCell(stepCount)
 }
+
+var HorizontalDirections = []Direction{ Left, Right }
+

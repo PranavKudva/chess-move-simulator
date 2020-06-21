@@ -40,3 +40,12 @@ func Rook(board board.Board, cell board.Cell) HorizontalAndVerticalMovablePiece 
 		HorizontalMovablePiece{piece},
 	}
 }
+
+func Horse(board board.Board, cell board.Cell) MultiMovementPiece {
+	piece := Piece{"Knight", board, cell, true}
+
+	return MultiMovementPiece{
+		MultiStepHorizontalMovablePiece{piece},
+		MultiStepVerticalMovablePiece{piece},
+	}
+}

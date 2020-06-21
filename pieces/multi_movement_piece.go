@@ -37,3 +37,7 @@ func (piece MultiStepVerticalMovablePiece) moveVertically() board.Cells {
 	return nextCells
 }
 
+type MultiMovementPiece struct {
+	MultiStepHorizontalMovablePiece
+	MultiStepVerticalMovablePiece
+}

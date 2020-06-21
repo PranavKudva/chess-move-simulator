@@ -32,3 +32,11 @@ func Queen(board board.Board, cell board.Cell) AllMovablePiece {
 	}
 }
 
+func Rook(board board.Board, cell board.Cell) HorizontalAndVerticalMovablePiece {
+	piece := Piece{"Bishop", board, cell, true}
+
+	return HorizontalAndVerticalMovablePiece{
+		VerticalMovablePiece{piece},
+		HorizontalMovablePiece{piece},
+	}
+}

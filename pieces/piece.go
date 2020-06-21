@@ -75,3 +75,9 @@ type AllMovablePiece struct {
 	HorizontalMovablePiece
 }
 
+
+type HorizontalAndVerticalMovablePiece struct {
+	VerticalMovablePiece
+	HorizontalMovablePiece
+}
+

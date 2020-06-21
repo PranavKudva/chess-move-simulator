@@ -41,3 +41,7 @@ type MultiMovementPiece struct {
 	MultiStepHorizontalMovablePiece
 	MultiStepVerticalMovablePiece
 }
+
+func (piece MultiMovementPiece) GetNextCells() board.Cells  {
+	return append(piece.moveHorizontally(), piece.moveVertically()...)
+}

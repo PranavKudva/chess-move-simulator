@@ -5,6 +5,10 @@ import (
 	"chess/traversals"
 )
 
+type Movable interface {
+	GetNextCells() board.Cells
+}
+
 type Piece struct {
 	name               string
 	board              board.Board
@@ -48,6 +52,9 @@ func (piece VerticalMovablePiece) moveVertically() board.Cells {
 	return nextCells
 }
 
+func (piece VerticalMovablePiece) GetNextCells() board.Cells  {
+	return piece.moveVertically()
+}
 
 type DiagonalMovable interface {
 	moveDiagonally() board.Cells
@@ -68,6 +75,9 @@ func (piece DiagonalMovablePiece) moveDiagonally() board.Cells {
 	return nextCells
 }
 
+func (piece DiagonalMovablePiece) GetNextCells() board.Cells  {
+	return piece.moveDiagonally()
+}
 
 type AllMovablePiece struct {
 	DiagonalMovablePiece
@@ -75,9 +85,25 @@ type AllMovablePiece struct {
 	HorizontalMovablePiece
 }
 
+func (piece AllMovablePiece) GetNextCells() board.Cells  {
+	allPossibleCells := board.Cells{}
+
+	horizonalCells := piece.HorizontalMovablePiece.moveHorizontally()
+	verticalCells := piece.VerticalMovablePiece.moveVertically()
+	diagonalCells := piece.DiagonalMovablePiece.moveDiagonally()
+
+	allPossibleCells = append(allPossibleCells, horizonalCells...)
+	allPossibleCells = append(allPossibleCells, verticalCells...)
+	allPossibleCells = append(allPossibleCells, diagonalCells...)
+
+	return allPossibleCells
+}
 
 type HorizontalAndVerticalMovablePiece struct {
 	VerticalMovablePiece
 	HorizontalMovablePiece
 }
 
+func (piece HorizontalAndVerticalMovablePiece) GetNextCells() board.Cells  {
+	return append(piece.HorizontalMovablePiece.moveHorizontally(), piece.VerticalMovablePiece.moveVertically()...)
+}

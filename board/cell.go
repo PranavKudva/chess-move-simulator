@@ -6,6 +6,13 @@ type Cell struct {
 	VerticalCoordinate, HorizontalCoordinate int
 }
 
+func (c Cell) String() string {
+	if c.VerticalCoordinate == 0 {
+		return fmt.Sprintf("%c%d", 65 + c.VerticalCoordinate, c.HorizontalCoordinate + 1)
+	}
+
+	return fmt.Sprintf("%c%d", 65 + (c.VerticalCoordinate - 1), c.HorizontalCoordinate + 1)
+}
 
 func (c Cell) leftCell(count int) Cell {
 	return Cell{HorizontalCoordinate: c.HorizontalCoordinate - count, VerticalCoordinate: c.VerticalCoordinate}

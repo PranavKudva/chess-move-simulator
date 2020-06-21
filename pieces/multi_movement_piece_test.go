@@ -55,3 +55,49 @@ func TestMultiMovementPiece_moveHorizontally(t *testing.T) {
 	}
 }
 
+func TestMultiMovementPiece_moveVertically(t *testing.T) {
+	tests := []struct {
+		name     string
+		piece    MultiStepVerticalMovablePiece
+		expected board.Cells
+	}{
+		// A1 A2 A3
+		// B1 B2 B3
+		// C1 C2 C3
+		// D1 D2 D3
+		// E1 E2 E3; current = C2
+		{
+			name:     "piece on 5X3 board should return apt possible cells",
+			piece:    MultiStepVerticalMovablePiece{Piece{board: board.Board{5, 3}, canMoveAcrossBoard: false, current: board.Cell{2, 1}}},
+			expected: board.Cells{board.Cell{0, 0}, board.Cell{0, 2}, board.Cell{4, 0}, board.Cell{4, 2}},
+		},
+		// A1 A2 A3
+		// B1 B2 B3
+		// C1 C2 C3
+		// D1 D2 D3
+		// E1 E2 E3; current = A1
+		{
+			name:     "piece on 5X3 board should return apt possible cells when can't move up",
+			piece:    MultiStepVerticalMovablePiece{Piece{board: board.Board{5, 3}, canMoveAcrossBoard: false, current: board.Cell{0, 0}}},
+			expected: board.Cells{board.Cell{2, 1}},
+		},
+	 	// current = E1
+		{
+			name:     "piece on 5X3 board should return apt possible cells when can't move down",
+			piece:    MultiStepVerticalMovablePiece{Piece{board: board.Board{5, 3}, canMoveAcrossBoard: false, current: board.Cell{4, 0}}},
+			expected: board.Cells{board.Cell{2, 1}},
+		},
+		// A1; current = A1
+		{
+			name:     "piece on 1X1 board should return empty when on corner and can't move across board",
+			piece:    MultiStepVerticalMovablePiece{Piece{board: board.Board{1, 1}, current: board.Cell{0, 0}, canMoveAcrossBoard: false}},
+			expected: board.Cells{},
+		},
+	}
+	for _, subtest := range tests {
+		t.Run(subtest.name, func(t *testing.T) {
+			cells := subtest.piece.moveVertically()
+			assert.Equal(t, subtest.expected, cells)
+		})
+	}
+}

@@ -22,3 +22,16 @@ func TraverseSingleMovements(direction board.Direction, acrossBoard bool,
 
 	return nextCells
 }
+
+func TraverseMultiMovements(movement Movement, currentCell board.Cell, board board.Board) *board.Cell {
+	if len(movement) == 0 {
+		return &currentCell
+	}
+
+	nextMove := movement[0]
+	if nextCell := getCellAt(currentCell, nextMove.direction, nextMove.count); board.Has(nextCell) {
+		return TraverseMultiMovements(movement[1:], nextCell, board)
+	} else {
+		return nil
+	}
+}

@@ -11,3 +11,24 @@ func Bishop(board board.Board, cell board.Cell) DiagonalMovablePiece {
 
 	return DiagonalMovablePiece{piece}
 }
+
+func King(board board.Board, cell board.Cell) AllMovablePiece {
+	piece := Piece{"King", board, cell, false}
+
+	return AllMovablePiece{
+		DiagonalMovablePiece{piece},
+		VerticalMovablePiece{piece},
+		HorizontalMovablePiece{piece},
+	}
+}
+
+func Queen(board board.Board, cell board.Cell) AllMovablePiece {
+	piece := Piece{"Queen", board, cell, true}
+
+	return AllMovablePiece{
+		DiagonalMovablePiece{piece},
+		VerticalMovablePiece{piece},
+		HorizontalMovablePiece{piece},
+	}
+}
+

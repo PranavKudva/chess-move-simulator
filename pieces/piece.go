@@ -68,3 +68,10 @@ func (piece DiagonalMovablePiece) moveDiagonally() board.Cells {
 	return nextCells
 }
 
+
+type AllMovablePiece struct {
+	DiagonalMovablePiece
+	VerticalMovablePiece
+	HorizontalMovablePiece
+}
+

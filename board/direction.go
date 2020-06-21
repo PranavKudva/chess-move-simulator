@@ -38,3 +38,4 @@ var HorizontalDirections = []Direction{ Left, Right }
 
 var VerticalDirections = []Direction{ Up, Down }
 
+var DiagonalDirections = []Direction{ LeftUp, LeftDown, RightUp, RightDown }

@@ -48,3 +48,23 @@ func (piece VerticalMovablePiece) moveVertically() board.Cells {
 	return nextCells
 }
 
+
+type DiagonalMovable interface {
+	moveDiagonally() board.Cells
+}
+
+type DiagonalMovablePiece struct {
+	Piece
+}
+
+func (piece DiagonalMovablePiece) moveDiagonally() board.Cells {
+	nextCells := board.Cells{}
+
+	for _, diagonalDirection := range board.DiagonalDirections {
+		nextCells = append(nextCells,
+			traversals.TraverseSingleMovements(diagonalDirection, piece.canMoveAcrossBoard, piece.current, piece.board)...)
+	}
+
+	return nextCells
+}
+

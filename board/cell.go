@@ -38,3 +38,5 @@ func (c Cell) leftDownCell(count int) Cell {
 func (c Cell) rightDownCell(count int) Cell {
 	return Cell{HorizontalCoordinate: c.HorizontalCoordinate + count, VerticalCoordinate: c.VerticalCoordinate + count}
 }
+
+type Cells []Cell
